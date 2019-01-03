@@ -25,13 +25,13 @@ public class MessageStatus implements Serializable{
 
     public boolean isSection;
 
-    public MessageStatus(int userId,int status,long time){
+    public MessageStatus(int userId,int status,String time){
         this.userId=userId;
         this.status=status;
         this.time=time;
     }
 
-    public MessageStatus(int userId, long time, boolean b) {
+    public MessageStatus(int userId, String time, boolean b) {
         this.userId=userId;
         this.time=time;
         this.isSection=b;
@@ -54,16 +54,16 @@ public class MessageStatus implements Serializable{
         this.status = status;
     }
 
-    public long getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(long time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
     private int userId;
     private int status;
-    private long time;
+    private String time;
 
 }

@@ -8,10 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.swap.groupchat.Model.MessageStatus;
-import com.example.swap.groupchat.Model.Movie;
-import com.example.swap.groupchat.Model.UserModel;
-import com.example.swap.groupchat.Other.CountriesAdapter;
-import com.example.swap.groupchat.Other.CountriesModel;
+
 import com.example.swap.groupchat.R;
 
 import java.lang.ref.WeakReference;
@@ -85,9 +82,7 @@ public class MsgInfoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
-       // Movie movie = moviesList.get(position);
 
-        //holder.year.setText(movie.getYear());
 
         Context context = mContextWeakReference.get();
         if (context == null) {

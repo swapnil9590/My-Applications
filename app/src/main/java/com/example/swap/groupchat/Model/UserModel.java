@@ -1,6 +1,8 @@
 package com.example.swap.groupchat.Model;
 
-public class UserModel {
+import java.io.Serializable;
+
+public class UserModel implements Serializable {
     public UserModel(String name, int id) {
         this.userName=name;
         this.userId=id;

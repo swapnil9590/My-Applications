@@ -14,12 +14,22 @@ public class MessageObject implements Serializable {
         this.messageText=msgTxt;
     }
 
-    public MessageObject(int msgId, String msgTxt, int messageTime,ArrayList<MessageStatus> messageStatus) {
+    /*public MessageObject(int msgId, String msgTxt, int messageTime,ArrayList<MessageStatus> messageStatus,boolean sent) {
         this.messageId=msgId;
         this.messageTime=messageTime;
         this.messageText=msgTxt;
         this.messageStatus=messageStatus;
+        this.sent=sent;
     }
+*/
+    public MessageObject(int msgId, String msgTxt, int messageTime,boolean sent) {
+        this.messageId=msgId;
+        this.messageTime=messageTime;
+        this.messageText=msgTxt;
+        this.messageStatus=messageStatus;
+        this.sent=sent;
+    }
+
 
     public int getMessageId() {
         return messageId;

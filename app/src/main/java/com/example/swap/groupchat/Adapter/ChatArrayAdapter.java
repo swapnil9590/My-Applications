@@ -1,34 +1,32 @@
 package com.example.swap.groupchat.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.swap.groupchat.Activity.MessageInfoActivity;
-import com.example.swap.groupchat.Activity.MsgInfoActivity;
+import com.example.swap.groupchat.Interface.MessageNotifier;
 import com.example.swap.groupchat.Model.ChatMessage;
 import com.example.swap.groupchat.Model.MessageObject;
 import com.example.swap.groupchat.R;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ChatArrayAdapter extends ArrayAdapter<ChatMessage> {
 
     private TextView chatText;
+    private ImageView imageView;
+    private ImageView imageView2;
     private RelativeLayout relative_view;
     //private List<ChatMessage> chatMessageList = new ArrayList<ChatMessage>();
     private List<MessageObject> chatMessageList = new ArrayList<MessageObject>();
     private Context context;
-
+    MessageNotifier messageNotifier;
 
     @Override
     public void add(ChatMessage object) {
@@ -36,10 +34,11 @@ public class ChatArrayAdapter extends ArrayAdapter<ChatMessage> {
         super.add(object);
     }
 
-    public ChatArrayAdapter(Context context, int textViewResourceId, ArrayList<MessageObject> msgArrayList) {
+    public ChatArrayAdapter(Context context, int textViewResourceId, ArrayList<MessageObject> msgArrayList,MessageNotifier msgNotifierListener) {
         super(context, textViewResourceId);
         this.context = context;
         this.chatMessageList = msgArrayList;
+        this.messageNotifier=msgNotifierListener;
     }
 
     public int getCount() {
@@ -52,31 +51,28 @@ public class ChatArrayAdapter extends ArrayAdapter<ChatMessage> {
     }*/
 
     public View getView(final int position, View convertView, ViewGroup parent) {
-       // MessageObject chatMessageObj = getItem(position);
         View row = convertView;
         LayoutInflater inflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-       /* if (chatMessageObj.left) {*/
             row = inflater.inflate(R.layout.my_message, parent, false);
             relative_view = (RelativeLayout) row.findViewById(R.id.relative_view);
+            chatText = (TextView) row.findViewById(R.id.message_body);
+            imageView = (ImageView) row.findViewById(R.id.img_status);
+            imageView2 = (ImageView) row.findViewById(R.id.img_status1);
 
             relative_view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent i=new Intent(context,MsgInfoActivity.class);
-                    Log.d("listPos->>",position+"");
-                    Bundle args = new Bundle();
-                    args.putSerializable("chatList",(Serializable)chatMessageList);
-                    i.putExtra("bundle",args);
-                    i.putExtra("pos", position);
-                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(i);
+
+                    messageNotifier.updateMessageStatus(chatMessageList.get(position).getMessageId(),chatMessageList.get(position).getMessageStatus(),position);
                 }
             });
-        /*}else{*/
-           // row = inflater.inflate(R.layout.their_message, parent, false);
-        //}
-        chatText = (TextView) row.findViewById(R.id.message_body);
 
+         if(chatMessageList.get(position).isSent()){
+             imageView2.setImageResource(R.drawable.msg_sent);
+             imageView.setImageResource(R.drawable.msg_delieverd);
+         }else {
+             imageView.setImageResource(R.drawable.msg_delieverd);
+         }
 
         chatText.setText(chatMessageList.get(position).getMessageText());
 

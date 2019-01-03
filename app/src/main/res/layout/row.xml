@@ -43,9 +43,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:textColor="@color/title"
-        android:textSize="16dp"
-        android:textStyle="bold"
+        android:textColor="#c2bfbf"
+        android:textSize="14dp"
         android:text="Time"
         />
     <View
